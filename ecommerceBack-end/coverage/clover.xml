@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741913583706" clover="3.2.0">
-  <project timestamp="1741913583706" name="All files">
-    <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="3" coveredelements="3" complexity="0" loc="2" ncloc="2" packages="1" files="1" classes="1"/>
+<coverage generated="1742519429171" clover="3.2.0">
+  <project timestamp="1742519429171" name="All files">
+    <metrics statements="11" coveredstatements="5" conditionals="10" coveredconditionals="0" methods="4" coveredmethods="2" elements="25" coveredelements="7" complexity="0" loc="11" ncloc="11" packages="1" files="2" classes="2"/>
     <file name="soma.js" path="C:\Users\denie\OneDrive\Documentos\GitHub\Projeto-back\ecommerceBack-end\test\soma.js">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <line num="4" count="5" type="stmt"/>
       <line num="7" count="1" type="stmt"/>
+    </file>
+    <file name="validarEmail.js" path="C:\Users\denie\OneDrive\Documentos\GitHub\Projeto-back\ecommerceBack-end\test\validarEmail.js">
+      <metrics statements="9" coveredstatements="3" conditionals="10" coveredconditionals="0" methods="3" coveredmethods="1"/>
+      <line num="2" count="0" type="cond" truecount="0" falsecount="5"/>
+      <line num="3" count="0" type="stmt"/>
+      <line num="5" count="0" type="stmt"/>
+      <line num="8" count="3" type="stmt"/>
+      <line num="9" count="3" type="stmt"/>
+      <line num="12" count="0" type="cond" truecount="0" falsecount="5"/>
+      <line num="13" count="0" type="stmt"/>
+      <line num="15" count="0" type="stmt"/>
+      <line num="18" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
