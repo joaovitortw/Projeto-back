@@ -1,4 +1,4 @@
-const { validarEmail } = require('./validarEmail'); // Importação correta
+const { validarEmail } = require('./validarEmail');
 
 test('Email válido deve retornar true', () => {
     expect(validarEmail('email@teste.com')).toBe(true);
