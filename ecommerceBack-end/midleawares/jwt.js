@@ -26,3 +26,15 @@ const dadosUduarioAltenticado = {
 const tokenJWT = gerartokenjwt(dadosUduarioAltenticado);
 
 console.log("Token JWT gerado:", tokenJWT);
+
+const tokenRecebido = tokenJWT;
+
+//const tokenRecebido = "token-JTW-recebido";
+
+const dadosDecodificados = verificarTokenJWT(tokenRecebido);
+
+    if(dadosDecodificados){
+        console.log("token JWT valido.", dadosDecodificados);
+    } else {
+        console.log("token JWT invalido.");
+    }
