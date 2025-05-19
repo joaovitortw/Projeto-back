@@ -1,108 +1,102 @@
 const bcrypt = require('bcryptjs');
-const { User } = require('../models');
-const { verificarRefreshToken } = require('../services/jwt_service');
+const db = require('../models');
+const UniLogin = db.uni_login;
+const { gerarAccessToken, gerarRefreshToken, verificarRefreshToken } = require('../services/jwt_service');
 
 module.exports = {
-    async register(req, res) {
-        const { name, username, password, confirmPassword } = req.body;
+  async register(req, res) {
+    const { login, senha, confirmSenha } = req.body;
 
-        try {
-            if (password !== confirmPassword) {
-                return res.status(400).json({ error: 'Passwords do not match' });
-            }
+    try {
+      if (!login || !senha || !confirmSenha) {
+        return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
+      }
 
-            const userExists = await User.findOne({ where: { username } });
+      if (senha !== confirmSenha) {
+        return res.status(400).json({ error: 'Senhas não coincidem.' });
+      }
 
-            if (userExists) {
-                return res.status(400).json({ error: 'Username already taken' });
-            }
+      const userExists = await UniLogin.findOne({ where: { login } });
 
-            const hashedPassword = await bcrypt.hash(password, 10);
+      if (userExists) {
+        return res.status(400).json({ error: 'Login já cadastrado.' });
+      }
 
-            const user = await User.create({ name, username, password: hashedPassword });
-            return res.status(201).json({ message: 'User registered successfully', user });
-        } catch (error) {
-            return res.status(500).json({ error: 'Registration failed', details: error.message });
-        }
-    },
+      const hashedPassword = await bcrypt.hash(senha, 10);
 
-    async login(req, res) {
-        const { username, password } = req.body;
+      const user = await UniLogin.create({ login, senha: hashedPassword });
 
-        try {
-            const user = await User.findOne({ where: { username } });
-
-            if (!user) {
-                return res.status(401).json({ error: 'Invalid username or password' });
-            }
-
-            const passwordMatch = await bcrypt.compare(password, user.password);
-
-            if (!passwordMatch) {
-                return res.status(401).json({ error: 'Invalid username or password' });
-            }
-
-            const payload = {
-                id: user.id,
-                email: user.email,
-                tipo: user.tipo,
-            };
-
-            const accessToken = gerarAccessToken(payload);
-
-            const refreshToken = gerarRefreshToken(payload);
-
-            return res.status(200).json({
-                accessToken,
-                message: 'Login successful',
-                user: {
-                    id: user.id,
-                    email: user.email,
-                    role: user.tipo,
-                },
-            });
-
-
-
-        } catch (error) {
-            return res.status(500).json({ error: 'Login failed', details: error.message });
-        }
-
-    },
-    async refresh(req, res) {
-        const { refreshToken } = req.body;
-        if (refreshToken) throw new HttpError(400, 'Refresh token não enviado.');
-
-        const decoded = verificarRefreshToken(refreshToken);
-
-        const user = await user.findUnique({
-            where: { id: decoded.id }
-        });
-
-        if (!user || user.refreshToken !== refreshToken) {
-            throw new HttpError(403, 'Refresh Token invalido.');
-        }
-
-        const payload = {
-            id: user.id,
-            email: user.email,
-            tipo: user.tipo,
-        };
-
-        const novoAcessToken = gerarAccessToken(payload);
-        res.json({ accessToken: novoAcessToken });
-    },
-
-    async logout(req, res) {
-        const { refreshToken } = req.body;
-
-        const decoded = verificarRefreshToken(refreshToken);
-
-        await user.update({
-            where: { id: decoded.id },
-            data: { refreshToken: null }
-        });
-
-        res.json({ mensagem: 'logout realizado com sucesso.' });
+      return res.status(201).json({
+        message: 'Usuário registrado com sucesso!',
+        user: { login: user.login }
+      });
+    } catch (error) {
+      return res.status(500).json({ error: 'Erro interno no registro.', details: error.message });
     }
+  },
+
+  async login(req, res) {
+    const { login, senha } = req.body;
+
+    try {
+      if (!login || !senha) {
+        return res.status(400).json({ error: 'Login e senha são obrigatórios.' });
+      }
+
+      const user = await UniLogin.findOne({ where: { login } });
+
+      if (!user) {
+        return res.status(401).json({ error: 'Login inválido.' });
+      }
+
+      const passwordMatch = await bcrypt.compare(senha, user.senha);
+
+      if (!passwordMatch) {
+        return res.status(401).json({ error: 'Credenciais inválidas' });
+      }
+
+      const payload = { login: user.login };
+
+      const accessToken = gerarAccessToken(payload);
+      const refreshToken = gerarRefreshToken(payload);
+
+      return res.status(200).json({
+        message: 'Login realizado com sucesso!',
+        accessToken,
+        refreshToken,
+        user: { login: user.login }
+      });
+    } catch (error) {
+      return res.status(500).json({ error: 'Erro interno no login.', details: error.message });
+    }
+  },
+
+  async refresh(req, res) {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+      return res.status(400).json({ error: 'Refresh token não enviado.' });
+    }
+
+    try {
+      const decoded = verificarRefreshToken(refreshToken);
+
+      const user = await UniLogin.findOne({ where: { login: decoded.login } });
+
+      if (!user) {
+        return res.status(403).json({ error: 'Refresh Token inválido.' });
+      }
+
+      const novoAccessToken = gerarAccessToken({ login: user.login });
+
+      return res.json({ accessToken: novoAccessToken });
+    } catch (error) {
+      return res.status(500).json({ error: 'Erro ao renovar token.', details: error.message });
+    }
+  },
+
+  async logout(req, res) {
+    // Como não armazenamos refreshToken no banco, apenas responde OK
+    return res.json({ message: 'Logout realizado com sucesso (sem persistência).' });
+  }
 };

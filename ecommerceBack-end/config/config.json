@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "postgres",
-    "password": "postgres",
-    "database": "ecommercebackend",
+    "password": "J0a0witek@",
+    "database": "postgres",
     "host": "localhost",
     "dialect": "postgres"
   },

@@ -29,7 +29,7 @@ sequelize.authenticate()
         console.error('Unable to connect to the database:', error);
     });
 
-const authRoutes = require('./routes/authRoutes');
+const authRoutes = require('./routes/auth.routes');
 app.use('/api/auth', authRoutes);
 
 app.listen(3000, () => {
