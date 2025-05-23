@@ -96,7 +96,6 @@ module.exports = {
   },
 
   async logout(req, res) {
-    // Como não armazenamos refreshToken no banco, apenas responde OK
     return res.json({ message: 'Logout realizado com sucesso (sem persistência).' });
   }
 };
