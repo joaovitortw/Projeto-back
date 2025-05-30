@@ -1,50 +1,50 @@
-const { gerarAccessToken, gerarRefreshToken, verificarRefreshToken } = require('../services/tokenRefresh');
+const { gerarAccessToken, gerarRefreshToken, verificarRefreshToken } = require('../services/jwt_service');
 const db = require('../models');
 const bcrypt = require('bcryptjs');
 
 exports.register = async (req, res) => {
-  const { username, password, tipo } = req.body;
+  const { login, senha, tipo } = req.body;
 
-  if (!username || !password || !tipo) {
+  if (!login || !senha || !tipo) {
     return res.status(400).json({ error: "Todos os campos são obrigatórios" });
   }
 
   try {
-    const existente = await db.User.findOne({ where: { username } });
+    const existente = await db.User.findOne({ where: { login } });
     if (existente) return res.status(409).json({ error: "Usuário já cadastrado" });
 
-    const hash = await bcrypt.hash(password, 10);
-    const novoUsuario = await db.User.create({ username, password: hash, tipo });
+    const hash = await bcrypt.hash(senha, 10);
+    const novoUsuario = await db.User.create({ login, senha: hash, tipo });
 
-    res.status(201).json({ message: "Usuário registrado com sucesso", id: novoUsuario.id });
+    res.status(201).json({ message: "Usuário registrado com sucesso", login: novoUsuario.login });
   } catch (err) {
     res.status(500).json({ error: "Erro no servidor", detalhe: err.message });
   }
 };
 
 exports.login = async (req, res) => {
-  const { username, password } = req.body;
+  const { login, senha } = req.body;
 
   try {
-    const usuario = await db.User.findOne({ where: { username } });
-    if (!usuario || !(await bcrypt.compare(password, usuario.password))) {
-      return res.status(401).json({ error: "Usuário ou senha inválidos" });
+    const usuario = await db.User.findOne({ where: { login } });
+    if (!usuario || !(await bcrypt.compare(senha, usuario.senha))) {
+      return res.status(401).json({ error: "Login ou senha inválidos" });
     }
 
-    const payload = { id: usuario.id, username: usuario.username, tipo: usuario.tipo };
+    const payload = { login: usuario.login, tipo: usuario.tipo };
     const accessToken = gerarAccessToken(payload);
     const refreshToken = gerarRefreshToken(payload);
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: true,
+      secure: false, // deixe como true em produção com HTTPS
       sameSite: "strict",
       maxAge: 15 * 60 * 1000
     });
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
@@ -62,14 +62,13 @@ exports.refresh = async (req, res) => {
   try {
     const payload = verificarRefreshToken(refreshToken);
     const novoAccessToken = gerarAccessToken({
-      id: payload.id,
-      username: payload.username,
+      login: payload.login,
       tipo: payload.tipo
     });
 
     res.cookie("accessToken", novoAccessToken, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "strict",
       maxAge: 15 * 60 * 1000
     });

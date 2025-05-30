@@ -1,4 +1,4 @@
-const { verificarAccessToken } = require('../services/tokenRefresh');
+const { verificarAccessToken } = require('../services/jwt_service');
 
 module.exports = (req, res, next) => {
   const token = req.cookies.accessToken;
