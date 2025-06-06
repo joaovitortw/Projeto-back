@@ -1,9 +1,15 @@
 const bcrypt = require('bcryptjs');
 const db = require('../models');
-const User = db.user;
-const { gerarAccessToken, gerarRefreshToken, verificarRefreshToken } = require('../services/jwt_service');
+const User = db.User;
+const RefreshToken = db.RefreshToken;
+const {
+  gerarAccessToken,
+  gerarRefreshToken,
+  verificarRefreshToken
+} = require('../services/jwt_service');
 
 module.exports = {
+  // REGISTRO DE USUÁRIO
   async register(req, res) {
     const { login, senha, confirmSenha, tipo } = req.body;
 
@@ -16,11 +22,13 @@ module.exports = {
     }
 
     try {
-      const userExists = await UniLogin.findOne({ where: { login } });
-      if (userExists) return res.status(409).json({ error: 'Usuário já cadastrado.' });
+      const userExists = await User.findOne({ where: { login } });
+      if (userExists) {
+        return res.status(409).json({ error: 'Usuário já cadastrado.' });
+      }
 
       const hashedPassword = await bcrypt.hash(senha, 10);
-      const user = await UniLogin.create({ login, senha: hashedPassword, tipo });
+      const user = await User.create({ login, senha: hashedPassword, tipo });
 
       return res.status(201).json({
         message: 'Usuário registrado com sucesso!',
@@ -31,6 +39,7 @@ module.exports = {
     }
   },
 
+  // LOGIN DE USUÁRIO
   async login(req, res) {
     const { login, senha } = req.body;
 
@@ -39,26 +48,34 @@ module.exports = {
     }
 
     try {
-      const user = await UniLogin.findOne({ where: { login } });
+      const user = await User.findOne({ where: { login } });
       if (!user || !(await bcrypt.compare(senha, user.senha))) {
         return res.status(401).json({ error: 'Login ou senha inválidos' });
       }
 
-      const payload = { login: user.login, tipo: user.tipo };
+      const payload = { id: user.id, login: user.login, tipo: user.tipo };
       const accessToken = gerarAccessToken(payload);
       const refreshToken = gerarRefreshToken(payload);
 
-      res.cookie("accessToken", accessToken, {
-        httpOnly: true,
-        secure: false, // Altere para true em produção com HTTPS
-        sameSite: "strict",
-        maxAge: 15 * 60 * 1000
+      // Salvar refresh token no banco
+      await RefreshToken.create({
+        token: refreshToken,
+        userId: user.id,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 dias
       });
 
-      res.cookie("refreshToken", refreshToken, {
+      // Enviar cookies
+      res.cookie('accessToken', accessToken, {
+        httpOnly: true,
+        secure: false, // Altere para true em produção com HTTPS
+        sameSite: 'strict',
+        maxAge: 5 * 60 * 1000 // 5 minutos
+      });
+
+      res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
         secure: false,
-        sameSite: "strict",
+        sameSite: 'strict',
         maxAge: 7 * 24 * 60 * 60 * 1000
       });
 
@@ -71,21 +88,32 @@ module.exports = {
     }
   },
 
+  // RENOVAR ACCESS TOKEN
   async refresh(req, res) {
     const refreshToken = req.cookies.refreshToken;
+
     if (!refreshToken) {
       return res.status(400).json({ error: 'Refresh token não fornecido' });
     }
 
     try {
       const payload = verificarRefreshToken(refreshToken);
-      const novoAccessToken = gerarAccessToken({ login: payload.login, tipo: payload.tipo });
 
-      res.cookie("accessToken", novoAccessToken, {
+      const tokenSalvo = await RefreshToken.findOne({ where: { token: refreshToken } });
+      if (!tokenSalvo) {
+        return res.status(403).json({ error: 'Refresh token inválido ou revogado' });
+      }
+
+      const novoAccessToken = gerarAccessToken({
+        login: payload.login,
+        tipo: payload.tipo
+      });
+
+      res.cookie('accessToken', novoAccessToken, {
         httpOnly: true,
         secure: false,
-        sameSite: "strict",
-        maxAge: 15 * 60 * 1000
+        sameSite: 'strict',
+        maxAge: 5 * 60 * 1000
       });
 
       return res.status(200).json({ message: 'Token renovado com sucesso' });
@@ -94,9 +122,17 @@ module.exports = {
     }
   },
 
-  logout(req, res) {
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
+  // LOGOUT
+  async logout(req, res) {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (refreshToken) {
+      await RefreshToken.destroy({ where: { token: refreshToken } });
+    }
+
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
+
     return res.status(200).json({ message: 'Logout efetuado com sucesso' });
   }
 };

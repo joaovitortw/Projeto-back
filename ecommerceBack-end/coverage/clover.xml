@@ -1,31 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1745542897866" clover="3.2.0">
-  <project timestamp="1745542897866" name="All files">
-    <metrics statements="16" coveredstatements="5" conditionals="18" coveredconditionals="0" methods="5" coveredmethods="2" elements="39" coveredelements="7" complexity="0" loc="16" ncloc="16" packages="1" files="3" classes="3"/>
-    <file name="login.js" path="C:\Users\denie\OneDrive\Documentos\GitHub\Projeto-back\ecommerceBack-end\test\login.js">
-      <metrics statements="5" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <line num="2" count="0" type="cond" truecount="0" falsecount="4"/>
-      <line num="3" count="0" type="stmt"/>
-      <line num="5" count="0" type="cond" truecount="0" falsecount="4"/>
-      <line num="6" count="0" type="stmt"/>
-      <line num="8" count="0" type="stmt"/>
-    </file>
-    <file name="soma.js" path="C:\Users\denie\OneDrive\Documentos\GitHub\Projeto-back\ecommerceBack-end\test\soma.js">
-      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <line num="4" count="5" type="stmt"/>
-      <line num="7" count="1" type="stmt"/>
-    </file>
-    <file name="validarEmail.js" path="C:\Users\denie\OneDrive\Documentos\GitHub\Projeto-back\ecommerceBack-end\test\validarEmail.js">
-      <metrics statements="9" coveredstatements="3" conditionals="10" coveredconditionals="0" methods="3" coveredmethods="1"/>
-      <line num="2" count="0" type="cond" truecount="0" falsecount="5"/>
-      <line num="3" count="0" type="stmt"/>
-      <line num="5" count="0" type="stmt"/>
-      <line num="8" count="3" type="stmt"/>
-      <line num="9" count="3" type="stmt"/>
-      <line num="12" count="0" type="cond" truecount="0" falsecount="5"/>
-      <line num="13" count="0" type="stmt"/>
-      <line num="15" count="0" type="stmt"/>
-      <line num="18" count="1" type="stmt"/>
-    </file>
+<coverage generated="1749173588559" clover="3.2.0">
+  <project timestamp="1749173588559" name="All files">
+    <metrics statements="148" coveredstatements="103" conditionals="53" coveredconditionals="23" methods="21" coveredmethods="14" elements="222" coveredelements="140" complexity="0" loc="148" ncloc="148" packages="6" files="10" classes="10"/>
+    <package name="ecommerceBack-end">
+      <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="app.js" path="C:\Users\jv150\OneDrive\Desktop\Projeto\ecommerceBack-end\app.js">
+        <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="ecommerceBack-end.controllers">
+      <metrics statements="52" coveredstatements="19" conditionals="24" coveredconditionals="7" methods="4" coveredmethods="1"/>
+      <file name="authController.js" path="C:\Users\jv150\OneDrive\Desktop\Projeto\ecommerceBack-end\controllers\authController.js">
+        <metrics statements="52" coveredstatements="19" conditionals="24" coveredconditionals="7" methods="4" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="16" count="0" type="cond" truecount="0" falsecount="6"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="20" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="44" count="4" type="stmt"/>
+        <line num="46" count="4" type="cond" truecount="3" falsecount="1"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="50" count="4" type="stmt"/>
+        <line num="51" count="4" type="stmt"/>
+        <line num="52" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="57" count="2" type="stmt"/>
+        <line num="58" count="2" type="stmt"/>
+        <line num="61" count="2" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="75" count="2" type="stmt"/>
+        <line num="82" count="2" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="95" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="103" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="107" count="0" type="stmt"/>
+        <line num="112" count="0" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="121" count="0" type="stmt"/>
+        <line num="127" count="0" type="stmt"/>
+        <line num="129" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="130" count="0" type="stmt"/>
+        <line num="133" count="0" type="stmt"/>
+        <line num="134" count="0" type="stmt"/>
+        <line num="136" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="ecommerceBack-end.middlewares">
+      <metrics statements="14" coveredstatements="9" conditionals="10" coveredconditionals="2" methods="3" coveredmethods="2"/>
+      <file name="auth.js" path="C:\Users\jv150\OneDrive\Desktop\Projeto\ecommerceBack-end\middlewares\auth.js">
+        <metrics statements="9" coveredstatements="7" conditionals="6" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="6" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="11" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+      </file>
+      <file name="autorizar.js" path="C:\Users\jv150\OneDrive\Desktop\Projeto\ecommerceBack-end\middlewares\autorizar.js">
+        <metrics statements="5" coveredstatements="2" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="3" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="ecommerceBack-end.models">
+      <metrics statements="31" coveredstatements="29" conditionals="11" coveredconditionals="7" methods="7" coveredmethods="7"/>
+      <file name="index.js" path="C:\Users\jv150\OneDrive\Desktop\Projeto\ecommerceBack-end\models\index.js">
+        <metrics statements="22" coveredstatements="20" conditionals="11" coveredconditionals="7" methods="3" coveredmethods="3"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="13" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="23" count="6" type="cond" truecount="3" falsecount="0"/>
+        <line num="26" count="4" type="stmt"/>
+        <line num="27" count="4" type="stmt"/>
+        <line num="30" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="35" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="36" count="4" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="43" count="2" type="stmt"/>
+      </file>
+      <file name="refreshtoken.js" path="C:\Users\jv150\OneDrive\Desktop\Projeto\ecommerceBack-end\models\refreshtoken.js">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+      </file>
+      <file name="user.js" path="C:\Users\jv150\OneDrive\Desktop\Projeto\ecommerceBack-end\models\user.js">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="ecommerceBack-end.routes">
+      <metrics statements="32" coveredstatements="28" conditionals="6" coveredconditionals="5" methods="3" coveredmethods="1"/>
+      <file name="auth.routes.js" path="C:\Users\jv150\OneDrive\Desktop\Projeto\ecommerceBack-end\routes\auth.routes.js">
+        <metrics statements="14" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+      </file>
+      <file name="sessoes.routes.js" path="C:\Users\jv150\OneDrive\Desktop\Projeto\ecommerceBack-end\routes\sessoes.routes.js">
+        <metrics statements="18" coveredstatements="16" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="11" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="18" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="23" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="ecommerceBack-end.services">
+      <metrics statements="7" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="3"/>
+      <file name="jwt_service.js" path="C:\Users\jv150\OneDrive\Desktop\Projeto\ecommerceBack-end\services\jwt_service.js">
+        <metrics statements="7" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="3"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>
