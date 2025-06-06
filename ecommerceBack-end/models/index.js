@@ -27,7 +27,6 @@ fs
     db[model.name] = model;
   });
 
-// Carrega o model User manualmente (se ainda não foi carregado)
 if (!db.User) {
   db.User = require('.User.js')(sequelize, Sequelize.DataTypes);
 }

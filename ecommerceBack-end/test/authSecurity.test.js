@@ -1,6 +1,6 @@
-import request from 'supertest';
-import app from '../app';
-import { prisma } from '../models';
+const request = require('supertest');
+const app = require('../app');
+const { prisma } = require('../models');
 
 describe('Testes de Segurança - Autenticação', () => {
   const usuarioTeste = {

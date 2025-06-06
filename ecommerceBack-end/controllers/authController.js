@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const db = require('../models');
-const UniLogin = db.uni_login;
+const User = db.user;
 const { gerarAccessToken, gerarRefreshToken, verificarRefreshToken } = require('../services/jwt_service');
 
 module.exports = {
